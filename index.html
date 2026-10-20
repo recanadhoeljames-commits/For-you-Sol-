@@ -1,0 +1,779 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>A Little Surprise for You, My Dearest, Sol ♡</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --matcha: #718C62;
+      --matcha-dark: #43583D;
+      --sage: #A8B99A;
+      --sage-light: #DCE5D4;
+      --cream: #F8F6EF;
+      --paper: #FFFEFA;
+      --ink: #394334;
+      --muted: #7B8573;
+      --line: #E3E7DC;
+      --white: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    button, a {
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid var(--matcha-dark);
+      outline-offset: 4px;
+    }
+
+    .page {
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 54px 22px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Soft decorative background */
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 1px solid rgba(67, 88, 61, 0.10);
+      border-radius: 50%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .page::before {
+      top: -115px;
+      right: -95px;
+    }
+
+    .page::after {
+      bottom: -130px;
+      left: -100px;
+      width: 270px;
+      height: 270px;
+    }
+
+    /* Typography */
+
+    .eyebrow {
+      color: var(--matcha-dark);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      line-height: 1.8;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      font-family: "Times New Roman", serif;
+      font-weight: 400;
+    }
+
+    h1 {
+      color: var(--matcha-dark);
+      font-size: clamp(46px, 9vw, 76px);
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      margin: 24px 0 18px;
+    }
+
+    h2 {
+      color: var(--matcha-dark);
+      font-size: clamp(35px, 7vw, 49px);
+      line-height: 1.15;
+      margin: 16px 0;
+    }
+
+    p {
+      max-width: 510px;
+      font-size: 14px;
+      line-height: 2;
+      font-weight: 400;
+    }
+
+    .intro {
+      color: #66735F;
+      margin: 10px auto 24px;
+    }
+
+    .small-note {
+      font-size: 11px;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 14px 0;
+      color: var(--matcha);
+      font-size: 15px;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      width: 35px;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    .heart {
+      color: var(--matcha);
+      font-size: 29px;
+      margin: 8px 0;
+      animation: heartbeat 2.5s ease-in-out infinite;
+    }
+
+    /* Buttons */
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 47px;
+      border: 1px solid var(--matcha-dark);
+      border-radius: 50px;
+      padding: 13px 25px;
+      margin: 10px 5px;
+      background: var(--matcha-dark);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background: var(--matcha);
+      border-color: var(--matcha);
+      box-shadow: 0 8px 22px rgba(57, 67, 52, 0.12);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--matcha-dark);
+      border-color: #B9C6AF;
+    }
+
+    .btn.secondary:hover {
+      background: var(--sage-light);
+      color: var(--matcha-dark);
+      border-color: var(--sage);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-top: 12px;
+    }
+
+    /* Opening page */
+
+    #home {
+      background:
+        radial-gradient(ellipse at 50% 42%,
+          rgba(255, 255, 255, 0.15),
+          transparent 65%),
+        var(--matcha);
+      color: var(--paper);
+    }
+
+    #home::before,
+    #home::after {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    #home .eyebrow {
+      color: #EDF1E7;
+    }
+
+    #home h1 {
+      color: var(--paper);
+    }
+
+    #home .heart {
+      color: #E4EAD9;
+    }
+
+    #home .intro {
+      color: #F0F2EA;
+    }
+
+    #home .small-note {
+      color: #E1E8DA;
+    }
+
+    #home .ornament {
+      color: #EDF1E7;
+    }
+
+    #home .ornament::before,
+    #home .ornament::after {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    #home .btn {
+      background: var(--cream);
+      color: var(--matcha-dark);
+      border-color: var(--cream);
+    }
+
+    #home .btn:hover {
+      background: var(--sage-light);
+      border-color: var(--sage-light);
+    }
+
+    #home .btn.secondary {
+      background: transparent;
+      color: var(--paper);
+      border-color: rgba(255, 255, 255, 0.55);
+    }
+
+    #home .btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    /* Letter page */
+
+    .letter {
+      position: relative;
+      max-width: 590px;
+      width: 100%;
+      padding: clamp(25px, 6vw, 50px);
+      margin: 20px auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 55px rgba(57, 67, 52, 0.07);
+      text-align: left;
+      border-radius: 3px;
+    }
+
+    .letter::before {
+      content: "♡";
+      position: absolute;
+      top: 15px;
+      right: 19px;
+      color: var(--sage);
+      font-size: 19px;
+    }
+
+    .letter .eyebrow {
+      margin-bottom: 20px;
+    }
+
+    .letter p {
+      max-width: none;
+      font-size: 13px;
+      line-height: 2.05;
+      white-space: pre-line;
+      overflow-wrap: anywhere;
+    }
+
+    .signature {
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      color: var(--matcha);
+      font-size: 21px;
+      margin-top: 24px;
+    }
+
+    .music-note {
+      max-width: 590px;
+      width: 100%;
+      padding: 23px 20px;
+      margin: 8px auto 18px;
+      border: 1px solid #D8E1D0;
+      border-radius: 8px;
+      background: #EDF1E7;
+    }
+
+    .music-note .music-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 22px;
+      margin: 7px 0;
+      color: var(--matcha-dark);
+    }
+
+    .music-note p {
+      margin: 6px auto 12px;
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    /* Poem page */
+
+    .poem-card {
+      position: relative;
+      width: 100%;
+      max-width: 570px;
+      margin: 20px auto;
+      padding: clamp(30px, 7vw, 58px) 22px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 55px rgba(57, 67, 52, 0.07);
+    }
+
+    .poem-card::before,
+    .poem-card::after {
+      content: "✳";
+      position: absolute;
+      color: #A7B99A;
+      font-size: 17px;
+    }
+
+    .poem-card::before {
+      top: 17px;
+      left: 19px;
+    }
+
+    .poem-card::after {
+      bottom: 17px;
+      right: 19px;
+    }
+
+    .poem-title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(27px, 6vw, 37px);
+      font-style: italic;
+      color: var(--matcha-dark);
+      margin: 0 0 12px;
+    }
+
+    .poem-dedication {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    .poem-text {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(16px, 4vw, 19px);
+      font-weight: 400;
+      line-height: 2.15;
+      color: #4B5844;
+      white-space: pre-line;
+      margin: 0 auto;
+    }
+
+    .poem-signature {
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      color: var(--matcha);
+      font-size: 17px;
+      margin-top: 30px;
+    }
+
+    /* Final page */
+
+    .final-card {
+      width: 100%;
+      max-width: 570px;
+      padding: clamp(28px, 7vw, 55px);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 55px rgba(57, 67, 52, 0.07);
+    }
+
+    .final-message {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(29px, 6vw, 45px);
+      line-height: 1.5;
+      color: var(--matcha-dark);
+      margin: 18px 0;
+    }
+
+    .final-card p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Page transitions */
+
+    .fade-in {
+      animation: appear 0.8s ease both;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    .floating-heart {
+      position: fixed;
+      bottom: -30px;
+      color: #DCE5D4;
+      pointer-events: none;
+      animation: float-up 5s linear forwards;
+      z-index: 10;
+    }
+
+    @keyframes float-up {
+      to {
+        transform: translateY(-110vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding: 35px 17px 75px;
+      }
+
+      .letter {
+        padding: 27px 22px;
+      }
+
+      .letter p {
+        font-size: 12.5px;
+      }
+
+      .button-row {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .button-row .btn {
+        width: min(100%, 290px);
+      }
+
+      .poem-card {
+        padding: 43px 17px;
+      }
+
+      .final-card {
+        padding: 30px 22px;
+      }
+
+      .page::before,
+      .page::after {
+        opacity: 0.6;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SCREEN 1: THE OPENING -->
+
+  <section id="home" class="page">
+    <div class="eyebrow">A little something, made with love</div>
+
+    <div class="ornament">✳</div>
+
+    <h1>My Dearest,<br>Sol</h1>
+
+    <div class="heart">♡</div>
+
+    <p class="intro">
+I made a little surprise for you hehehe and I hope you will appreciate it, Love!
+
+
+ But before that I want to ask a favor, Sol. Before you open
+  the next page, please click this link for the
+  song I want you to listen to while reading.
+</p>
+
+<a
+  class="btn secondary"
+  href="https://www.youtube.com/watch?v=S_XELwHPKTE&list=RDS_XELwHPKTE&start_radio=1"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  ♫ Listen to the song first
+</a>
+
+<button class="btn" onclick="showPage('letter')">
+  Open your surprise ♡
+</button>
+
+<p class="small-note">made with love, just for you</p>
+</section>
+
+  <!-- SCREEN 2: YOUR LETTER -->
+
+  <section id="letter" class="page hidden">
+    <div class="eyebrow">From my heart to yours</div>
+
+    <div class="ornament">♡</div>
+
+    <div class="letter fade-in">
+      <div class="eyebrow">My love,</div>
+
+      <!-- YOUR ORIGINAL LETTER: PRESERVED -->
+
+      <p id="loveLetter">Hi, Sol! Uhmm so might be wondering and asking "UNSA MANI, GOV? 😭
+this is me surpassing the extent of my ka "ka-cornyhan" basta inlove. 
+To be honest, I really don't know how to code,
+up until no wa gihapon ko kasabot, but thanks to the guidance of my friends and ofcourse with the little bit help of my friend, AI, I was able to create this.
+
+Sol, I know lately you're slowly drifting from your old self. The sol na productive, na kugihan, na active student and sol nga naay motivation to finish her tasks.
+I may not know what's the root cause or want are the reasons behind that, maybe random phase or maybe you're starting to realize that this isn't the field 
+that you want to take on. Na di jud nimo makita imong self sa field of teaching. And I want you to know that it is valid. Very very valid.
+
+You know, I was once like that, gikan first year hantod third year, I really could not see myself being in front and imparting knowledge to these learners. 
+Kase nga how can I pour them knowledge na even ako hesitant sakong mga natun-an. But you know, being immersed in this field made me think na it is nice din naman pala. 
+Nice man diay ang fact that you are creating an impact, exhausting? yes but I'm learning to love it along the way. 
+
+I'm not telling you to love teaching profession like me, huh? kay I know sakong sarili this isn't something that you can embrace overnight, it will take a lot of reflection bago nimo madawat na this is reality. But I'm telling you to hold on, do not give up saimong dreams, do not give up saimong studies, and most especially do not give up on yourself. You can be so much more, Love! I know that, not because I am expecting you, but because I know you are great at things that you do. 
+
+Life may be exhausting but it is LIFE. What's life without it's adversities, right? 
+Hold on a little, give it a try, do not be scared because along the way, I will be holding your hand and assure you that you are not alone.
+
+Thank you for still being here, Love!
+Thank you for persisting, for trying, and for not giving up. ♡
+I love you, more than people and code languages could ever explain.</p>
+
+      <p class="signature">Always yours ♡</p>
+    </div>
+
+    <button class="btn" onclick="showPage('poem')">
+      A poem, just for you →
+    </button>
+
+    <p class="footer-note">take your time, my love</p>
+  </section>
+
+
+  <!-- SCREEN 3: YOUR POEM -->
+
+  <section id="poem" class="page hidden">
+    <div class="eyebrow">My way of showing my LOVE</div>
+
+    <div class="ornament">✳</div>
+
+    <h2>Here's a poem for you ♡</h2>
+
+    <p class="intro">
+      Forgive me if my words are a bit rusty, dugay dugay nako wa kasulat usab.
+    </p>
+
+    <div class="poem-card fade-in">
+      <!-- CHANGE THIS TO YOUR OWN POEM TITLE -->
+
+      <h3 class="poem-title">Dearest</h3>
+
+      <div class="poem-dedication">
+        You are brave. You are more than what you thnk
+      </div>
+
+
+      <div class="poem-text">Sol, it is alright to feel lost beneath the weight of becoming.
+You need not have every answer, nor understand every road.
+It is alright to grow weary when the world demands your strength.
+Even the bravest hearts grow tired of carrying their own storms.
+
+It is alright to be afraid of what tomorrow might bring.
+You are not less brave just because your hands tremble.
+Even the brightest stars have nights when they seem to disappear.
+And even then, my love, they remain worthy of the sky.
+
+When everything feels heavy, do not carry it alone.
+Come to me with your worries, your silence, and your uncertainties.
+You never have to pretend you are fine just to be loved.
+I will hold space for you, even when world fail us.
+
+Hold on, Sol, but never feel obliged to be invulnerable.
+Rest when you can, cry when you feel it, and begin again.
+Whatever storms await, you will never have to face them alone.
+And when you forget how to shine, my love, let me love you as you are.</div>
+
+      <div class="poem-signature">
+        With all my love and words, ♡
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="btn secondary" onclick="showPage('letter')">
+        ← Back to my letter
+      </button>
+
+      <button class="btn" onclick="showPage('final')">
+        One last thing... ♡
+      </button>
+    </div>
+
+    <p class="footer-note">every word, a little piece of my heart</p>
+  </section>
+
+
+  <!-- SCREEN 4: THE FINAL SURPRISE -->
+
+  <section id="final" class="page hidden">
+    <div class="final-card fade-in">
+      <div class="eyebrow">ALWAYS HAVE THIS IN YOUR MIND</div>
+
+      <div class="ornament">♡</div>
+
+      <div class="heart">♡</div>
+
+      <!-- YOUR ORIGINAL FINAL MESSAGE: PRESERVED -->
+
+      <div class="final-message">
+        You are so brave, Love! I'm so proud of you,<br>
+        I'm so glad I found you.
+      </div>
+
+      <p>
+        For as long as I live, you have someone you can lean on,
+        you can run into, and you can hold on. I love you, Sol!
+        And if I could choose all over again, I'd still choose you.
+      </p>
+
+      <div class="ornament">✳</div>
+
+      <div class="heart">♡</div>
+
+      <p class="signature">You and me, always.</p>
+
+      <button class="btn" onclick="showPage('home')">
+        Read it all again ↺
+      </button>
+    </div>
+
+    <p class="footer-note">made for you, and only you ♡</p>
+  </section>
+
+
+  <!-- JAVASCRIPT: PAGE NAVIGATION AND ANIMATIONS -->
+
+  <script>
+    function showPage(pageId) {
+      const pages = document.querySelectorAll(".page");
+
+      pages.forEach(page => {
+        page.classList.add("hidden");
+      });
+
+      const nextPage = document.getElementById(pageId);
+
+      if (!nextPage) return;
+
+      nextPage.classList.remove("hidden");
+
+      // Replay the entrance animation.
+      nextPage.classList.remove("fade-in");
+      void nextPage.offsetWidth;
+      nextPage.classList.add("fade-in");
+
+      // Return to the top of the new page.
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      makeHearts();
+    }
+
+    // Floating hearts when navigating between pages.
+    function makeHearts() {
+      for (let i = 0; i < 6; i++) {
+        const heart = document.createElement("span");
+
+        heart.className = "floating-heart";
+        heart.textContent = Math.random() > 0.5 ? "♡" : "♥";
+        heart.setAttribute("aria-hidden", "true");
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize =
+          (13 + Math.random() * 15) + "px";
+
+        heart.style.animationDuration =
+          (4 + Math.random() * 3) + "s";
+
+        document.body.appendChild(heart);
+
+        heart.addEventListener("animationend", () => {
+          heart.remove();
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
